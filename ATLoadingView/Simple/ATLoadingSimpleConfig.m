@@ -20,9 +20,9 @@
         self.errorAttributedText = [self.class createDefaultAttributedText:@"error"];
         self.noNetworkAttributedText = [self.class createDefaultAttributedText:@"no network"];
         
-        self.emptyImage = @"page_empty_def.png";
-        self.errorImage = @"page_empty_def.png";
-        self.noNetworkImage = @"page_empty_def.png";
+        self.emptyImage = @"ATLoadingView.bundle/page_empty_def.png";
+        self.errorImage = @"ATLoadingView.bundle/page_empty_def.png";
+        self.noNetworkImage = @"ATLoadingView.bundle/page_empty_def.png";
         
         self.errorImageFrame = CGRectMake(0,0,90,90);
         self.emptyImageFrame = self.errorImageFrame;

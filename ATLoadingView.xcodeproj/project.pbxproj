@@ -17,13 +17,11 @@
 		183B331F26315C8200A72D0B /* ATLoadingSimpleConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 183B331126315C8200A72D0B /* ATLoadingSimpleConfig.m */; };
 		183B332126315C8200A72D0B /* ATLoadingSimpleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183B331426315C8200A72D0B /* ATLoadingSimpleView.m */; };
 		183B332426315C8200A72D0B /* ATLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 183B331C26315C8200A72D0B /* ATLoadingView.m */; };
-		183B332A26315CE400A72D0B /* page_empty_def@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183B332826315CE400A72D0B /* page_empty_def@3x.png */; };
-		183B332E26317A5700A72D0B /* new_public_pics_icon_wifi_un@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183B332D26317A5600A72D0B /* new_public_pics_icon_wifi_un@3x.png */; };
-		183B333226317AD000A72D0B /* new_pics_no_follow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 183B333126317AD000A72D0B /* new_pics_no_follow@3x.png */; };
 		18A3EDB92632B04600335AA0 /* ATViewConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3EDB82632B04400335AA0 /* ATViewConfig.m */; };
 		18A3EDBD2632B2E600335AA0 /* UIView+ATViewExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3EDBC2632B2E600335AA0 /* UIView+ATViewExtension.m */; };
 		18A3EDC22632B41900335AA0 /* ATViewLoadingConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3EDC12632B41900335AA0 /* ATViewLoadingConfig.m */; };
 		18A3EDD02632C12500335AA0 /* ATViewObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A3EDCF2632C12500335AA0 /* ATViewObject.m */; };
+		18A3F3E32632DA1F00335AA0 /* ATLoadingView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18A3F3E22632DA1F00335AA0 /* ATLoadingView.bundle */; };
 		C6A1DFCA4D843A05BA4DE4F4 /* libPods-ATLoadingView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 94FDE8AA0C2CEC54C164BD82 /* libPods-ATLoadingView.a */; };
 /* End PBXBuildFile section */
 
@@ -47,9 +45,6 @@
 		183B331A26315C8200A72D0B /* ATLoadingSimpleConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLoadingSimpleConfig.h; sourceTree = "<group>"; };
 		183B331B26315C8200A72D0B /* ATLoadingSimpleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATLoadingSimpleView.h; sourceTree = "<group>"; };
 		183B331C26315C8200A72D0B /* ATLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATLoadingView.m; sourceTree = "<group>"; };
-		183B332826315CE400A72D0B /* page_empty_def@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "page_empty_def@3x.png"; sourceTree = "<group>"; };
-		183B332D26317A5600A72D0B /* new_public_pics_icon_wifi_un@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new_public_pics_icon_wifi_un@3x.png"; sourceTree = "<group>"; };
-		183B333126317AD000A72D0B /* new_pics_no_follow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "new_pics_no_follow@3x.png"; sourceTree = "<group>"; };
 		18A3EDB72632B04400335AA0 /* ATViewConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATViewConfig.h; sourceTree = "<group>"; };
 		18A3EDB82632B04400335AA0 /* ATViewConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATViewConfig.m; sourceTree = "<group>"; };
 		18A3EDBB2632B2E600335AA0 /* UIView+ATViewExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+ATViewExtension.h"; sourceTree = "<group>"; };
@@ -58,6 +53,7 @@
 		18A3EDC12632B41900335AA0 /* ATViewLoadingConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATViewLoadingConfig.m; sourceTree = "<group>"; };
 		18A3EDCE2632C12500335AA0 /* ATViewObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATViewObject.h; sourceTree = "<group>"; };
 		18A3EDCF2632C12500335AA0 /* ATViewObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATViewObject.m; sourceTree = "<group>"; };
+		18A3F3E22632DA1F00335AA0 /* ATLoadingView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ATLoadingView.bundle; sourceTree = "<group>"; };
 		862A8689C9BCF8ECCB7C4003 /* Pods-ATLoadingView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ATLoadingView.release.xcconfig"; path = "Target Support Files/Pods-ATLoadingView/Pods-ATLoadingView.release.xcconfig"; sourceTree = "<group>"; };
 		94FDE8AA0C2CEC54C164BD82 /* libPods-ATLoadingView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ATLoadingView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1BA9338F569EA2714F5BF58 /* Pods-ATLoadingView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ATLoadingView.debug.xcconfig"; path = "Target Support Files/Pods-ATLoadingView/Pods-ATLoadingView.debug.xcconfig"; sourceTree = "<group>"; };
@@ -78,9 +74,6 @@
 		183B32EA26315C7100A72D0B = {
 			isa = PBXGroup;
 			children = (
-				183B332D26317A5600A72D0B /* new_public_pics_icon_wifi_un@3x.png */,
-				183B333126317AD000A72D0B /* new_pics_no_follow@3x.png */,
-				183B332826315CE400A72D0B /* page_empty_def@3x.png */,
 				183B331026315C8200A72D0B /* ATLoadingView */,
 				183B32F526315C7100A72D0B /* ATLoadingViewDemo */,
 				183B32F426315C7100A72D0B /* Products */,
@@ -118,6 +111,7 @@
 		183B331026315C8200A72D0B /* ATLoadingView */ = {
 			isa = PBXGroup;
 			children = (
+				18A3F3E12632DA1F00335AA0 /* Resources */,
 				183B33342631864500A72D0B /* Simple */,
 				183B331526315C8200A72D0B /* ATLoadingView.h */,
 				183B331C26315C8200A72D0B /* ATLoadingView.m */,
@@ -143,6 +137,14 @@
 				183B331426315C8200A72D0B /* ATLoadingSimpleView.m */,
 			);
 			path = Simple;
+			sourceTree = "<group>";
+		};
+		18A3F3E12632DA1F00335AA0 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				18A3F3E22632DA1F00335AA0 /* ATLoadingView.bundle */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		E685C3169F7DDC225758B580 /* Pods */ = {
@@ -220,11 +222,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				183B332A26315CE400A72D0B /* page_empty_def@3x.png in Resources */,
-				183B332E26317A5700A72D0B /* new_public_pics_icon_wifi_un@3x.png in Resources */,
 				183B330626315C7300A72D0B /* LaunchScreen.storyboard in Resources */,
-				183B333226317AD000A72D0B /* new_pics_no_follow@3x.png in Resources */,
 				183B330326315C7300A72D0B /* Assets.xcassets in Resources */,
+				18A3F3E32632DA1F00335AA0 /* ATLoadingView.bundle in Resources */,
 				183B330126315C7100A72D0B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
