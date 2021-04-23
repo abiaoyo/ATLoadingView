@@ -14,6 +14,8 @@
     self = [super init];
     if (self) {
         
+        self.backgroundColor = [UIColor orangeColor];
+        
         self.emptyAttributedText = [self.class createDefaultAttributedText:@"empty"];
         self.errorAttributedText = [self.class createDefaultAttributedText:@"error"];
         self.noNetworkAttributedText = [self.class createDefaultAttributedText:@"no network"];

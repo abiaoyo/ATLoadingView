@@ -26,30 +26,29 @@
     return self;
 }
 
-- (void)setConfig:(ATLoadingConfig *)config{
+- (void)setConfig:(id<ATViewConfigInterface>)config{
     _config = config;
-    self.backgroundColor = config.backgroundColor;
+    self.backgroundColor = config.loadingConfig.backgroundColor;
 }
 
-- (void)atLoadingBegin{
+- (void)beginLoading{
     if(_state != ATViewStateBegin){
         _state = ATViewStateBegin;
-        
-        if(self.onBeginBlock){
-            self.onBeginBlock();
+        if(self.onLoadingBlock){
+            self.onLoadingBlock();
         }
     }
 }
-- (void)atLoadingEnd{
+- (void)endLoading{
     _state = ATViewStateEnd;
 }
-- (void)atLoadingError{
-    _state = ATViewStateError;
-}
-- (void)atLoadingEmpty{
+- (void)empty{
     _state = ATViewStateEmpty;
 }
-- (void)atLoadingNoNetwork{
+- (void)error{
+    _state = ATViewStateError;
+}
+- (void)noNetwork{
     _state = ATViewStateNoNetwork;
 }
 

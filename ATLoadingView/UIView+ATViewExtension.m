@@ -1,28 +1,26 @@
 //
-//  UIView+ATLoading.m
-//  DDLoadingViewDemo
+//  UIView+ATViewExtension.m
+//  ATLoadingView
 //
-//  Created by liyebiao on 2021/4/22.
-//  Copyright © 2021 ABiang. All rights reserved.
+//  Created by liyebiao on 2021/4/23.
 //
 
-#import "UIView+ATLoading.h"
+#import "UIView+ATViewExtension.h"
 #import <objc/runtime.h>
 #import "ATLoadingView.h"
 
-@interface ATLoadingDataSourceProxy : NSObject<UITableViewDataSource,UICollectionViewDataSource,UIScrollViewDelegate,UITableViewDelegate,UICollectionViewDelegate>
+@interface ATViewTempDataSourceProxy : NSObject<UITableViewDataSource,UICollectionViewDataSource,UIScrollViewDelegate,UITableViewDelegate,UICollectionViewDelegate>
 @property (nonatomic,strong) id oldDataSource;
 @property (nonatomic,assign) UITableViewCellSeparatorStyle separatorStyle;
 @property (nonatomic,strong) UIView * tableHeaderView;
 @property (nonatomic,strong) UIView * tableFooterView;
 @property (nonatomic,strong) UIView * mjHeaderView;
 @property (nonatomic,strong) UIView * mjFooterView;
-
 @property (nonatomic,assign) BOOL hasSetScrollEnabled;
 @property (nonatomic,assign) BOOL originScrollEnabled;
 @end
 
-@implementation ATLoadingDataSourceProxy
+@implementation ATViewTempDataSourceProxy
 
 - (instancetype)init{
     self = [super init];
@@ -55,149 +53,123 @@
 
 
 
-@implementation UIView (ATLoading)
+
+
+@interface UIView (ATViewExtension_Ext)<ATViewInterface>
+
+@end
+
+
+@implementation UIView (ATViewExtension)
+
+- (ATViewObject *)atView{
+    ATViewObject * obj = objc_getAssociatedObject(self, _cmd);
+    if(!obj){
+        obj = [[ATViewObject alloc] init];
+        obj.ownerView = self;
+        [self setAtView:obj];
+    }
+    return obj;
+}
+- (void)setAtView:(ATViewObject *)atView{
+    objc_setAssociatedObject(self, @selector(atView), atView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
 - (ATLoadingView *)atLoadingView{
     return objc_getAssociatedObject(self, _cmd);
 }
 - (void)setAtLoadingView:(ATLoadingView *)atLoadingView{
-    if(atLoadingView != self.atLoadingView){
-        objc_setAssociatedObject(self, @selector(atLoadingView), atLoadingView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    }
+    objc_setAssociatedObject(self, @selector(atLoadingView), atLoadingView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 
-
-- (Class  _Nonnull (^)(void))atLoadingViewClass{
-    return objc_getAssociatedObject(self, _cmd);
-}
-- (void)setAtLoadingViewClass:(Class  _Nonnull (^)(void))atLoadingViewClass{
-    objc_setAssociatedObject(self, @selector(atLoadingViewClass), atLoadingViewClass, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-
-
-- (Class  _Nonnull (^)(void))atLoadingConfigClass{
-    return objc_getAssociatedObject(self, _cmd);
-}
-- (void)setAtLoadingConfigClass:(Class  _Nonnull (^)(void))atLoadingConfigClass{
-    objc_setAssociatedObject(self, @selector(atLoadingConfigClass), atLoadingConfigClass, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-
-- (void (^)(UIView * _Nonnull, ATLoadingConfig * _Nonnull))atLoadingConfigModelBlock{
-    return objc_getAssociatedObject(self, _cmd);
-}
-- (void)setAtLoadingConfigModelBlock:(void (^)(UIView * _Nonnull, ATLoadingConfig * _Nonnull))atLoadingConfigModelBlock{
-    objc_setAssociatedObject(self, @selector(atLoadingConfigModelBlock), atLoadingConfigModelBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-
-
-- (void (^)(void))onAtLoadingBeginBlock{
-    return objc_getAssociatedObject(self, _cmd);
-}
-- (void)setOnAtLoadingBeginBlock:(void (^)(void))onAtLoadingBeginBlock{
-    objc_setAssociatedObject(self, @selector(onAtLoadingBeginBlock), onAtLoadingBeginBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
-}
-
-
-- (ATLoadingDataSourceProxy *)atCurrentDataSourceProxy:(BOOL)createNonExists{
-    ATLoadingDataSourceProxy * dataSourceProxy = [self atDataSourceProxy];
+- (ATViewTempDataSourceProxy *)atViewCurrentDataSourceProxy:(BOOL)createNonExists{
+    ATViewTempDataSourceProxy * dataSourceProxy = [self atViewTempDataSourceProxy];
     if (createNonExists && !dataSourceProxy){
-        dataSourceProxy = [ATLoadingDataSourceProxy new];
-        [self setAtDataSourceProxy:dataSourceProxy];
+        dataSourceProxy = [ATViewTempDataSourceProxy new];
+        [self setAtViewTempDataSourceProxy:dataSourceProxy];
     }
     return dataSourceProxy;
 }
-
-- (ATLoadingDataSourceProxy *)atDataSourceProxy{
-    ATLoadingDataSourceProxy * dataSourceProx = objc_getAssociatedObject(self, _cmd);
+- (ATViewTempDataSourceProxy *)atViewTempDataSourceProxy{
+    ATViewTempDataSourceProxy * dataSourceProx = objc_getAssociatedObject(self, _cmd);
     return dataSourceProx;
 }
-
-- (void)setAtDataSourceProxy:(ATLoadingDataSourceProxy *)atDataSourceProxy{
-    objc_setAssociatedObject(self, @selector(atDataSourceProxy), atDataSourceProxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setAtViewTempDataSourceProxy:(ATViewTempDataSourceProxy *)atViewTempDataSourceProxy{
+    objc_setAssociatedObject(self, @selector(atViewTempDataSourceProxy), atViewTempDataSourceProxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (BOOL)atIsTableView{
+
+
+- (BOOL)atLoading_isTableView{
     return [self isKindOfClass:[UITableView class]];
 }
-
-- (BOOL)atIsCollectionView{
+- (BOOL)atLoading_isCollectionView{
     return [self isKindOfClass:[UICollectionView class]];
 }
-
-- (BOOL)atIsScrollView{
+- (BOOL)atLoading_isScrollView{
     return [self isKindOfClass:[UIScrollView class]];
 }
 
-- (void)atClearDataSource{
-    if(self.atIsScrollView){
+- (void)atLoading_ClearDataSource{
+    if(self.atLoading_isScrollView){
         UIScrollView * scrollView = (UIScrollView *)self;
-        ATLoadingDataSourceProxy * dataSourceProxy = [self atCurrentDataSourceProxy:NO];
+        ATViewTempDataSourceProxy * dataSourceProxy = [self atViewCurrentDataSourceProxy:NO];
         if(dataSourceProxy){
             dataSourceProxy.hasSetScrollEnabled = NO;
             scrollView.scrollEnabled = dataSourceProxy.originScrollEnabled;
-            if(self.atIsTableView){
+            if(self.atLoading_isTableView){
                 UITableView * tableView = (UITableView *)scrollView;
-                
                 tableView.dataSource = dataSourceProxy.oldDataSource;
                 tableView.separatorStyle = dataSourceProxy.separatorStyle;
                 tableView.tableFooterView = dataSourceProxy.tableFooterView;
                 tableView.tableHeaderView = dataSourceProxy.tableHeaderView;
-                
                 [tableView insertSubview:dataSourceProxy.mjHeaderView atIndex:0];
                 [tableView insertSubview:dataSourceProxy.mjFooterView atIndex:0];
-                
                 dataSourceProxy.oldDataSource = nil;
                 dataSourceProxy.tableFooterView = nil;
                 dataSourceProxy.tableHeaderView = nil;
                 dataSourceProxy.mjHeaderView = nil;
                 dataSourceProxy.mjFooterView = nil;
                 dataSourceProxy.separatorStyle = -1;
-                [self setAtDataSourceProxy:nil];
-            }else if(self.atIsCollectionView){
+                [self setAtViewTempDataSourceProxy:nil];
+            }else if(self.atLoading_isScrollView){
                 UICollectionView * collectionView = (UICollectionView *)self;
-                ATLoadingDataSourceProxy * dataSourceProxy = [self atDataSourceProxy];
                 collectionView.scrollEnabled = dataSourceProxy.originScrollEnabled;
                 collectionView.dataSource = dataSourceProxy.oldDataSource;
-                
                 [collectionView insertSubview:dataSourceProxy.mjHeaderView atIndex:0];
                 [collectionView insertSubview:dataSourceProxy.mjFooterView atIndex:0];
-                
                 dataSourceProxy.oldDataSource = nil;
                 dataSourceProxy.mjHeaderView = nil;
                 dataSourceProxy.mjFooterView = nil;
-                [self setAtDataSourceProxy:nil];
+                [self setAtViewTempDataSourceProxy:nil];
             }
         }
     }
 }
 
 //保存tableView or CollectionView 状态
-- (void)atSaveDataSourceWithScrollEnable:(BOOL)scrollEnabled{
-    if(self.atIsScrollView){
+- (void)atLoading_SaveDataSourceWithScrollEnable:(BOOL)scrollEnabled{
+    if(self.atLoading_isScrollView){
         UIScrollView * scrollView = (UIScrollView *)self;
         [scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
-        ATLoadingDataSourceProxy * dataSourceProxy = [self atCurrentDataSourceProxy:YES];
+        ATViewTempDataSourceProxy * dataSourceProxy = [self atViewCurrentDataSourceProxy:YES];
         if(!dataSourceProxy.hasSetScrollEnabled){
             dataSourceProxy.hasSetScrollEnabled = YES;
             dataSourceProxy.originScrollEnabled = scrollView.scrollEnabled;
         }
-        if(self.atIsTableView){
+        if(self.atLoading_isTableView){
             UITableView * tableView = (UITableView *)scrollView;
             tableView.scrollEnabled = scrollEnabled;
 
             UIView * mjHeaderView = dataSourceProxy.mjHeaderView;
             UIView * mjFooterView = dataSourceProxy.mjFooterView;
             if(!mjHeaderView){
-                mjHeaderView = [tableView viewWithTag:ATLoadingForRefreshHeaderTag];
+                mjHeaderView = [tableView viewWithTag:ATViewForRefreshHeaderTag];
             }
             if(!mjFooterView){
-                mjFooterView = [tableView viewWithTag:ATLoadingForRefreshFooterTag];
+                mjFooterView = [tableView viewWithTag:ATViewForRefreshFooterTag];
             }
-            
             if(!dataSourceProxy.oldDataSource){
                 dataSourceProxy.oldDataSource = tableView.dataSource;
             }
@@ -210,16 +182,12 @@
             if(dataSourceProxy.separatorStyle < 0){
                 dataSourceProxy.separatorStyle = tableView.separatorStyle;
             }
-            
             dataSourceProxy.mjHeaderView = mjHeaderView;
             dataSourceProxy.mjFooterView = mjFooterView;
-            
             [mjHeaderView removeFromSuperview];
             [mjFooterView removeFromSuperview];
-            
             [tableView.tableHeaderView removeFromSuperview];
             [tableView.tableFooterView removeFromSuperview];
-            
             tableView.dataSource = dataSourceProxy;
             tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
             UIView * tHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0.01f)];
@@ -227,76 +195,81 @@
             tableView.tableHeaderView = tHeaderView;
             tableView.tableFooterView = tFooterView;
             [tableView reloadData];
-        }else if(self.atIsCollectionView){
+        }else if(self.atLoading_isScrollView){
             UICollectionView * collectionView = (UICollectionView *)scrollView;
             collectionView.scrollEnabled = scrollEnabled;
-            
             UIView * mjHeaderView = dataSourceProxy.mjHeaderView;
             UIView * mjFooterView = dataSourceProxy.mjFooterView;
             if(!mjHeaderView){
-                mjHeaderView = [collectionView viewWithTag:ATLoadingForRefreshHeaderTag];
+                mjHeaderView = [collectionView viewWithTag:ATViewForRefreshHeaderTag];
             }
             if(!mjFooterView){
-                mjFooterView = [collectionView viewWithTag:ATLoadingForRefreshFooterTag];
+                mjFooterView = [collectionView viewWithTag:ATViewForRefreshFooterTag];
             }
-            
             if(!dataSourceProxy.oldDataSource){
                 dataSourceProxy.oldDataSource = collectionView.dataSource;
             }
             
             dataSourceProxy.mjHeaderView = mjHeaderView;
             dataSourceProxy.mjFooterView = mjFooterView;
-            
             [mjHeaderView removeFromSuperview];
             [mjFooterView removeFromSuperview];
-            
             collectionView.dataSource = dataSourceProxy;
             [collectionView reloadData];
         }
-        self.atLoadingView.frame = self.bounds;
+        self.atLoadingView.frame = self.atLoading_GetViewFrame;
     }
 }
 
-- (void)atCreateLoadingViewWithNoExist:(BOOL)createNoExist{
+- (CGRect)atLoading_GetViewFrame{
+    UIEdgeInsets edge = self.atView.config.edgeInsets;
+    CGRect frame = self.bounds;
+    frame.origin.x = edge.left;
+    frame.origin.y = edge.top;
+    frame.size.width = CGRectGetWidth(self.bounds)-edge.left-edge.right;
+    frame.size.height = CGRectGetHeight(self.bounds)-edge.top-edge.bottom;
+    return frame;
+}
+
+- (void)atLoading_CreateView{
     if(!self.atLoadingView){
-        if(!createNoExist){
-            return;
-        }
-        ATLoadingView * loadingView = nil;
-        if(self.atLoadingViewClass){
-            loadingView = [[self.atLoadingViewClass() alloc] initWithFrame:self.bounds];
+        ATLoadingView * atLoadingView = nil;
+        if(self.atView.config.viewClass){
+            atLoadingView = [[self.atView.config.viewClass alloc] initWithFrame:self.atLoading_GetViewFrame];
         }else{
-            loadingView = [[NSClassFromString(@"ATLoadingSimpleView") alloc] initWithFrame:self.bounds];
+            atLoadingView = [[NSClassFromString(@"ATLoadingSimpleView") alloc] initWithFrame:self.atLoading_GetViewFrame];
         }
-        loadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-        self.atLoadingView = loadingView;
+        atLoadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        self.atLoadingView = atLoadingView;
         
-        ATLoadingConfig * config = nil;
-        if(self.atLoadingConfigClass){
-            config = [[self.atLoadingConfigClass() alloc] init];
+        
+        id<ATViewLoadingConfigInterface> loadingConfig = nil;
+        if(self.atView.config.lodingConfigClass){
+            loadingConfig = [[self.atView.config.lodingConfigClass alloc] init];
         }else{
-            config = [[NSClassFromString(@"ATLoadingSimpleConfig") alloc] init];
+            loadingConfig = [[NSClassFromString(@"ATLoadingSimpleConfig") alloc] init];
         }
-        if(self.atLoadingConfigModelBlock){
-            self.atLoadingConfigModelBlock(self, config);
+        self.atView.config.loadingConfig = loadingConfig;
+        
+            
+        if(self.atView.config.reLayoutConfigBlock){
+            self.atView.config.reLayoutConfigBlock(self, atLoadingView, loadingConfig);
         }
-        loadingView.config = config;
-    }else{
-        self.atLoadingView.frame = self.bounds;
+        atLoadingView.config = self.atView.config;
     }
 }
 
-- (void)atAddLoaingView{
+- (void)atLoading_AddView{
     if(!self.atLoadingView.superview){
         [self addSubview:self.atLoadingView];
     }
 }
 
-- (void)atConfigCallback{
+- (void)atLoading_ConfigCallBack{
     __weak typeof(self) weakself = self;
-    self.atLoadingView.onBeginBlock = ^{
-        if(weakself.onAtLoadingBeginBlock){
-            weakself.onAtLoadingBeginBlock();
+    self.atLoadingView.onLoadingBlock = ^{
+        if(weakself.atView.onLoadingBlock){
+            weakself.atView.onLoadingBlock();
         }
     };
 }
@@ -304,57 +277,56 @@
 @end
 
 
-@implementation UIView (ATLoadingExt)
+@implementation UIView (ATViewExtension_Ext)
 
-//MARK:ATLoading
-- (void)atLoadingBegin{
-    [self atLoadingBegin:YES];
+- (void)beginLoading{
+    [self beginLoading:YES];
 }
-- (void)atLoadingEnd{
-    [self atClearDataSource];
-    [self.atLoadingView atLoadingEnd];
+- (void)endLoading{
+    [self atLoading_ClearDataSource];
+    [self.atLoadingView endLoading];
 }
-- (void)atLoadingError{
-    [self atLoadingError:YES];
+- (void)empty{
+    [self empty:YES];
 }
-- (void)atLoadingEmpty{
-    [self atLoadingEmpty:YES];
+- (void)error{
+    [self error:YES];
 }
-- (void)atLoadingNoNetwork{
-    [self atLoadingNoNetwork:YES];
+- (void)noNetwork{
+    [self noNetwork:YES];
 }
 
-//MARK:----------------
-- (void)atLoadingBegin:(BOOL)scrollEnable{
-    [self atCreateLoadingViewWithNoExist:YES];
-    [self atConfigCallback];
-    [self atSaveDataSourceWithScrollEnable:scrollEnable];
-    [self atAddLoaingView];
-    [self.atLoadingView atLoadingBegin];
-    if(self.atLoadingView.onBeginBlock){
-        self.atLoadingView.onBeginBlock();
+- (void)beginLoading:(BOOL)scrollEnable{
+    [self atLoading_CreateView];
+    [self atLoading_ConfigCallBack];
+    [self atLoading_SaveDataSourceWithScrollEnable:scrollEnable];
+    [self atLoading_AddView];
+    [self.atLoadingView beginLoading];
+    
+    if(self.atLoadingView.onLoadingBlock){
+        self.atLoadingView.onLoadingBlock();
     }
 }
-- (void)atLoadingError:(BOOL)scrollEnable{
-    [self atCreateLoadingViewWithNoExist:YES];
-    [self atConfigCallback];
-    [self atSaveDataSourceWithScrollEnable:scrollEnable];
-    [self atAddLoaingView];
-    [self.atLoadingView atLoadingError];
+- (void)error:(BOOL)scrollEnable{
+    [self atLoading_CreateView];
+    [self atLoading_ConfigCallBack];
+    [self atLoading_SaveDataSourceWithScrollEnable:scrollEnable];
+    [self atLoading_AddView];
+    [self.atLoadingView error];
 }
-- (void)atLoadingEmpty:(BOOL)scrollEnable{
-    [self atCreateLoadingViewWithNoExist:YES];
-    [self atConfigCallback];
-    [self atSaveDataSourceWithScrollEnable:scrollEnable];
-    [self atAddLoaingView];
-    [self.atLoadingView atLoadingEmpty];
+- (void)empty:(BOOL)scrollEnable{
+    [self atLoading_CreateView];
+    [self atLoading_ConfigCallBack];
+    [self atLoading_SaveDataSourceWithScrollEnable:scrollEnable];
+    [self atLoading_AddView];
+    [self.atLoadingView empty];
 }
-- (void)atLoadingNoNetwork:(BOOL)scrollEnable{
-    [self atCreateLoadingViewWithNoExist:YES];
-    [self atConfigCallback];
-    [self atSaveDataSourceWithScrollEnable:scrollEnable];
-    [self atAddLoaingView];
-    [self.atLoadingView atLoadingNoNetwork];
+- (void)noNetwork:(BOOL)scrollEnable{
+    [self atLoading_CreateView];
+    [self atLoading_ConfigCallBack];
+    [self atLoading_SaveDataSourceWithScrollEnable:scrollEnable];
+    [self atLoading_AddView];
+    [self.atLoadingView noNetwork];
 }
 
 @end

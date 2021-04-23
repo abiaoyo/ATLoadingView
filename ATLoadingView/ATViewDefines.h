@@ -11,6 +11,9 @@
 
 #import <UIKit/UIKit.h>
 
+#define ATViewForRefreshHeaderTag 1001001
+#define ATViewForRefreshFooterTag 1001002
+
 typedef NS_ENUM(NSUInteger, ATViewState) {
     ATViewStateIdl = 0,
     ATViewStateBegin,
@@ -20,13 +23,28 @@ typedef NS_ENUM(NSUInteger, ATViewState) {
     ATViewStateNoNetwork,
 };
 
-@protocol ATLoading <NSObject>
+@protocol ATViewLoadingConfigInterface <NSObject>
 @required
-- (void)atLoadingBegin;
-- (void)atLoadingEnd;
-- (void)atLoadingError;
-- (void)atLoadingEmpty;
-- (void)atLoadingNoNetwork;
+@property (nonatomic,strong) UIColor * backgroundColor;
+@end
+
+@protocol ATViewConfigInterface <NSObject>
+@required
+@property (nonatomic,assign) UIEdgeInsets edgeInsets;
+@property (nonatomic,strong) Class viewClass;
+@property (nonatomic,strong) Class lodingConfigClass;
+@property (nonatomic,strong) id<ATViewLoadingConfigInterface> loadingConfig;
+@property (nonatomic,copy) void (^reLayoutConfigBlock)(UIView * superView,UIView * atView, id<ATViewLoadingConfigInterface> loadingConfig);
+@end
+
+
+@protocol ATViewInterface <NSObject>
+@required
+- (void)beginLoading;
+- (void)endLoading;
+- (void)empty;
+- (void)error;
+- (void)noNetwork;
 
 @end
 

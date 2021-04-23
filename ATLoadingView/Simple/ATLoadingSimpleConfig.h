@@ -6,11 +6,13 @@
 //  Copyright © 2021 ABiang. All rights reserved.
 //
 
-#import "ATLoadingConfig.h"
+#import "ATViewDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ATLoadingSimpleConfig : ATLoadingConfig
+@interface ATLoadingSimpleConfig : NSObject<ATViewLoadingConfigInterface>
+
+@property (nonatomic,strong) UIColor * backgroundColor;
 
 @property (nonatomic,copy) NSAttributedString * errorAttributedText;
 @property (nonatomic,copy) NSAttributedString * emptyAttributedText;

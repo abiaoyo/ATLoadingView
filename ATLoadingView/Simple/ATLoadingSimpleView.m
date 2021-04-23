@@ -37,23 +37,23 @@
     [self addSubview:self.activityView];
 }
 
-- (void)atLoadingBegin{
-    [super atLoadingBegin];
-    ATLoadingSimpleConfig * config = (ATLoadingSimpleConfig *)self.config;
+- (void)beginLoading{
+    [super beginLoading];
+    ATLoadingSimpleConfig * loadingConfig = (ATLoadingSimpleConfig *)self.config.loadingConfig;
     
-    self.activityView.frame = config.loadingFrame;
-    self.messageLabel.frame = config.loadingTextFrame;
+    self.activityView.frame = loadingConfig.loadingFrame;
+    self.messageLabel.frame = loadingConfig.loadingTextFrame;
     self.imageView.alpha = 0.0;
     self.messageLabel.alpha = 1.0;
-    self.messageLabel.attributedText = config.loadingAttributedText;
+    self.messageLabel.attributedText = loadingConfig.loadingAttributedText;
     [self.activityView startAnimating];
     
     self.alpha = 1.0f;
     
 }
 
-- (void)atLoadingEnd{
-    [super atLoadingEnd];
+- (void)endLoading{
+    [super endLoading];
     
     [UIView animateWithDuration:0.25 animations:^{
         self.imageView.alpha = 0.0;
@@ -65,44 +65,44 @@
     }];
 }
 
-- (void)atLoadingError{
-    [super atLoadingError];
-    ATLoadingSimpleConfig * config = (ATLoadingSimpleConfig *)self.config;
+- (void)error{
+    [super error];
+    ATLoadingSimpleConfig * loadingConfig = (ATLoadingSimpleConfig *)self.config.loadingConfig;
     
-    self.messageLabel.frame = config.errorTextFrame;
-    self.imageView.frame = config.errorImageFrame;
-    self.imageView.image = [UIImage imageNamed:config.errorImage];
-    self.messageLabel.attributedText = config.errorAttributedText;
+    self.messageLabel.frame = loadingConfig.errorTextFrame;
+    self.imageView.frame = loadingConfig.errorImageFrame;
+    self.imageView.image = [UIImage imageNamed:loadingConfig.errorImage];
+    self.messageLabel.attributedText = loadingConfig.errorAttributedText;
     [self.activityView stopAnimating];
     self.alpha = 1.0f;
     self.imageView.alpha = 1.0;
     self.messageLabel.alpha = 1.0;
 }
 
-- (void)atLoadingEmpty{
-    [super atLoadingEmpty];
+- (void)empty{
+    [super empty];
     
-    ATLoadingSimpleConfig * config = (ATLoadingSimpleConfig *)self.config;
-    self.messageLabel.frame = config.emptyTextFrame;
-    self.imageView.frame = config.emptyImageFrame;
+    ATLoadingSimpleConfig * loadingConfig = (ATLoadingSimpleConfig *)self.config.loadingConfig;
+    self.messageLabel.frame = loadingConfig.emptyTextFrame;
+    self.imageView.frame = loadingConfig.emptyImageFrame;
     
-    self.imageView.image = [UIImage imageNamed:config.emptyImage];
-    self.messageLabel.attributedText = config.emptyAttributedText;
+    self.imageView.image = [UIImage imageNamed:loadingConfig.emptyImage];
+    self.messageLabel.attributedText = loadingConfig.emptyAttributedText;
     [self.activityView stopAnimating];
     self.alpha = 1.0f;
     self.imageView.alpha = 1.0;
     self.messageLabel.alpha = 1.0;
 }
 
-- (void)atLoadingNoNetwork{
-    [super atLoadingNoNetwork];
+- (void)noNetwork{
+    [super noNetwork];
     
-    ATLoadingSimpleConfig * config = (ATLoadingSimpleConfig *)self.config;
-    self.messageLabel.frame = config.noNetworkTextFrame;
-    self.imageView.frame = config.noNetworkImageFrame;
+    ATLoadingSimpleConfig * loadingConfig = (ATLoadingSimpleConfig *)self.config.loadingConfig;
+    self.messageLabel.frame = loadingConfig.noNetworkTextFrame;
+    self.imageView.frame = loadingConfig.noNetworkImageFrame;
     
-    self.imageView.image = [UIImage imageNamed:config.noNetworkImage];
-    self.messageLabel.attributedText = config.noNetworkAttributedText;
+    self.imageView.image = [UIImage imageNamed:loadingConfig.noNetworkImage];
+    self.messageLabel.attributedText = loadingConfig.noNetworkAttributedText;
     [self.activityView stopAnimating];
     self.alpha = 1.0f;
     self.imageView.alpha = 1.0;
