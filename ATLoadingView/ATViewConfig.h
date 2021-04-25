@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong) Class viewClass;
 @property (nonatomic,strong) Class lodingConfigClass;
 @property (nonatomic,strong) id<ATViewLoadingConfigInterface> loadingConfig;
-@property (nonatomic,copy) void (^reLayoutConfigBlock)(UIView * superView,UIView * atView, id<ATViewLoadingConfigInterface> loadingConfig);
+@property (nonatomic,copy) void (^reLayoutConfigBlock)(UIView * superView, __kindof ATLoadingView * atLoadingView, id<ATViewLoadingConfigInterface> atLoadingConfig);
 
 @end
 

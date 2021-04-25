@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString * emptyImage;
 @property (nonatomic,copy) NSString * noNetworkImage;
 
-@property (nonatomic,assign) CGRect loadingFrame;
+@property (nonatomic,assign) CGRect activityFrame;
 @property (nonatomic,assign) CGRect errorImageFrame;
 @property (nonatomic,assign) CGRect emptyImageFrame;
 @property (nonatomic,assign) CGRect noNetworkImageFrame;

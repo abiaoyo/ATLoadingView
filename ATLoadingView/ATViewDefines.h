@@ -28,16 +28,6 @@ typedef NS_ENUM(NSUInteger, ATViewState) {
 @property (nonatomic,strong) UIColor * backgroundColor;
 @end
 
-@protocol ATViewConfigInterface <NSObject>
-@required
-@property (nonatomic,assign) UIEdgeInsets edgeInsets;
-@property (nonatomic,strong) Class viewClass;
-@property (nonatomic,strong) Class lodingConfigClass;
-@property (nonatomic,strong) id<ATViewLoadingConfigInterface> loadingConfig;
-@property (nonatomic,copy) void (^reLayoutConfigBlock)(UIView * superView,UIView * atView, id<ATViewLoadingConfigInterface> loadingConfig);
-@end
-
-
 @protocol ATViewInterface <NSObject>
 @required
 - (void)beginLoading;
@@ -45,7 +35,16 @@ typedef NS_ENUM(NSUInteger, ATViewState) {
 - (void)empty;
 - (void)error;
 - (void)noNetwork;
+@end
 
+@class ATLoadingView;
+@protocol ATViewConfigInterface <NSObject>
+@required
+@property (nonatomic,assign) UIEdgeInsets edgeInsets;
+@property (nonatomic,strong) Class viewClass;
+@property (nonatomic,strong) Class lodingConfigClass;
+@property (nonatomic,strong) id<ATViewLoadingConfigInterface> loadingConfig;
+@property (nonatomic,copy) void (^reLayoutConfigBlock)(UIView * superView, __kindof ATLoadingView * atLoadingView, id<ATViewLoadingConfigInterface> atLoadingConfig);
 @end
 
 

@@ -41,7 +41,7 @@
     [super beginLoading];
     ATLoadingSimpleConfig * loadingConfig = (ATLoadingSimpleConfig *)self.config.loadingConfig;
     
-    self.activityView.frame = loadingConfig.loadingFrame;
+    self.activityView.frame = loadingConfig.activityFrame;
     self.messageLabel.frame = loadingConfig.loadingTextFrame;
     self.imageView.alpha = 0.0;
     self.messageLabel.alpha = 1.0;
