@@ -61,8 +61,8 @@
     self.tableView.mj_footer.tag = ATViewForRefreshFooterTag;
 
     self.tableView.atView.config.edgeInsets = UIEdgeInsetsMake(10, 10, 5, 5);
-//    self.tableView.atView.config.viewClass = NSClassFromString(@"ATLoadingSimpleView");
-//    self.tableView.atView.config.lodingConfigClass = NSClassFromString(@"ATLoadingSimpleConfig");
+    self.tableView.atView.config.viewClass = NSClassFromString(@"ATLoadingSimpleView");
+    self.tableView.atView.config.lodingConfigClass = NSClassFromString(@"ATLoadingSimpleConfig");
     self.tableView.atView.config.reLayoutConfigBlock = ^(UIView *superView, ATLoadingView *atLoadingView, id<ATViewLoadingConfigInterface> atLoadingConfig) {
         ATLoadingSimpleConfig * simpleConfig = (ATLoadingSimpleConfig *)atLoadingConfig;
 
