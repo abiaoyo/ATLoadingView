@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
 s.name         = "ATLoadingView"
-s.version      = "0.1"
+s.version      = "0.2"
 s.summary      = "视图加载工具类，视图首次加载、空数据、加载错误展示处理。"
 s.homepage     = "https://github.com/abiaoyo/ATLoadingView"
 s.license      = { :type => "MIT", :file => "LICENSE" }

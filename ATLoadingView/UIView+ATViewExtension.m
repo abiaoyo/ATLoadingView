@@ -133,7 +133,7 @@
                 dataSourceProxy.mjFooterView = nil;
                 dataSourceProxy.separatorStyle = -1;
                 [self setAtViewTempDataSourceProxy:nil];
-            }else if(self.atLoading_isScrollView){
+            }else if(self.atLoading_isCollectionView){
                 UICollectionView * collectionView = (UICollectionView *)self;
                 collectionView.scrollEnabled = dataSourceProxy.originScrollEnabled;
                 collectionView.dataSource = dataSourceProxy.oldDataSource;
@@ -195,7 +195,7 @@
             tableView.tableHeaderView = tHeaderView;
             tableView.tableFooterView = tFooterView;
             [tableView reloadData];
-        }else if(self.atLoading_isScrollView){
+        }else if(self.atLoading_isCollectionView){
             UICollectionView * collectionView = (UICollectionView *)scrollView;
             collectionView.scrollEnabled = scrollEnabled;
             UIView * mjHeaderView = dataSourceProxy.mjHeaderView;
