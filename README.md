@@ -1,5 +1,5 @@
 # ATLoadingView
-*** cocoapods名字被占用，可以下载代码做本地库 ***
+*** cocoapods名字被占用，可以下载代码做本地库，可转到Cocoapods版本ATLoading： https://github.com/abiaoyo/ATLoading ***
 
 ATLoadingView 用于处理视图加载状态(加载，结束，空，错误，无网络)，便于使用和自定义扩展
 
